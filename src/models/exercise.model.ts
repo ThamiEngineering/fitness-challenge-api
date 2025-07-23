@@ -3,7 +3,7 @@ import mongoose, { Document, Schema } from 'mongoose';
 export interface IExercise extends Document {
   name: string;
   description: string;
-  category: string;
+  category: 'cardio' | 'strength' | 'flexibility' | 'balance' | 'sports' | 'recovery';
   muscleGroups: string[];
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   equipment: string[];

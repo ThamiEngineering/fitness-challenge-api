@@ -577,7 +577,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Push-ups\",\n  \"description\": \"Exercice de musculation pour les pectoraux\",\n  \"category\": \"Musculation\",\n  \"muscleGroups\": [\"Pectoraux\", \"Triceps\", \"Épaules\"],\n  \"equipment\": [],\n  \"difficulty\": \"easy\",\n  \"instructions\": [\n    \"Placez-vous en position de planche\",\n    \"Descendez en pliant les bras\",\n    \"Remontez en poussant\"\n  ],\n  \"caloriesPerMinute\": 8,\n  \"safetyTips\": [\"Gardez le dos droit\", \"Respirez correctement\"]\n}"
+              "raw": "{\n  \"name\": \"Push-ups\",\n  \"description\": \"Exercice de musculation pour les pectoraux\",\n  \"category\": \"strength\",\n  \"muscleGroups\": [\"Pectoraux\", \"Triceps\", \"Épaules\"],\n  \"equipment\": [],\n  \"difficulty\": \"beginner\",\n  \"instructions\": [\n    \"Placez-vous en position de planche\",\n    \"Descendez en pliant les bras\",\n    \"Remontez en poussant\"\n  ],\n  \"caloriesPerMinute\": 8,\n  \"safetyTips\": [\"Gardez le dos droit\", \"Respirez correctement\"]\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/exercises",
@@ -591,17 +591,17 @@
           "request": {
             "method": "GET",
             "url": {
-              "raw": "{{baseUrl}}/exercises?category=Musculation&difficulty=easy&page=1&limit=10",
+              "raw": "{{baseUrl}}/exercises?category=strength&difficulty=beginner&page=1&limit=10",
               "host": ["{{baseUrl}}"],
               "path": ["exercises"],
               "query": [
                 {
                   "key": "category",
-                  "value": "Musculation"
+                  "value": "strength"
                 },
                 {
                   "key": "difficulty",
-                  "value": "easy"
+                  "value": "beginner"
                 },
                 {
                   "key": "page",
@@ -689,7 +689,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"title\": \"Défi 30 jours Push-ups\",\n  \"description\": \"Faire 1000 push-ups en 30 jours\",\n  \"type\": \"individual\",\n  \"difficulty\": \"medium\",\n  \"category\": \"Musculation\",\n  \"objectives\": [\n    {\n      \"description\": \"Push-ups totaux\",\n      \"target\": 1000,\n      \"unit\": \"repetitions\"\n    }\n  ],\n  \"duration\": {\n    \"value\": 30,\n    \"unit\": \"days\"\n  },\n  \"rewards\": {\n    \"points\": 500,\n    \"badges\": []\n  },\n  \"maxParticipants\": 100,\n  \"tags\": [\"push-ups\", \"musculation\", \"30jours\"]\n}"
+              "raw": "{\n  \"title\": \"Défi 30 jours Push-ups\",\n  \"description\": \"Faire 1000 push-ups en 30 jours\",\n  \"type\": \"individual\",\n  \"difficulty\": \"medium\",\n  \"category\": \"strength\",\n  \"objectives\": [\n    {\n      \"description\": \"Push-ups totaux\",\n      \"target\": 1000,\n      \"unit\": \"repetitions\"\n    }\n  ],\n  \"duration\": {\n    \"value\": 30,\n    \"unit\": \"days\"\n  },\n  \"rewards\": {\n    \"points\": 500,\n    \"badges\": []\n  },\n  \"maxParticipants\": 100,\n  \"tags\": [\"push-ups\", \"strength\", \"30jours\"]\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/challenges",
@@ -897,7 +897,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Push-up Champion\",\n  \"description\": \"Complété le défi 1000 push-ups\",\n  \"category\": \"Achievement\",\n  \"rarity\": \"rare\",\n  \"icon\": \"🏆\",\n  \"rules\": {\n    \"type\": \"challenge_completion\",\n    \"conditions\": {\n      \"challengeCategory\": \"Musculation\",\n      \"minProgress\": 100\n    }\n  },\n  \"rewards\": {\n    \"points\": 100,\n    \"title\": \"Champion\"\n  }\n}"
+              "raw": "{\n  \"name\": \"Push-up Champion\",\n  \"description\": \"Complété le défi 1000 push-ups\",\n  \"category\": \"Achievement\",\n  \"rarity\": \"rare\",\n  \"icon\": \"🏆\",\n  \"rules\": {\n    \"type\": \"challenge_completion\",\n    \"conditions\": {\n      \"challengeCategory\": \"strength\",\n      \"minProgress\": 100\n    }\n  },\n  \"rewards\": {\n    \"points\": 100,\n    \"title\": \"Champion\"\n  }\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/badges",
@@ -960,7 +960,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"userId\": \"USER_ID_HERE\",\n  \"event\": \"challenge_completed\",\n  \"data\": {\n    \"challengeId\": \"CHALLENGE_ID_HERE\",\n    \"category\": \"Musculation\",\n    \"progress\": 100\n  }\n}"
+              "raw": "{\n  \"userId\": \"USER_ID_HERE\",\n  \"event\": \"challenge_completed\",\n  \"data\": {\n    \"challengeId\": \"CHALLENGE_ID_HERE\",\n    \"category\": \"strength\",\n    \"progress\": 100\n  }\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/badges/check-and-award",
@@ -1032,7 +1032,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Séance Push-ups du matin\",\n  \"type\": \"Musculation\",\n  \"exercises\": [\n    {\n      \"exercise\": \"EXERCISE_ID_HERE\",\n      \"sets\": 3,\n      \"reps\": 20,\n      \"weight\": 0,\n      \"duration\": 5,\n      \"restTime\": 60,\n      \"caloriesBurned\": 40\n    }\n  ],\n  \"duration\": 15,\n  \"caloriesBurned\": 40,\n  \"notes\": \"Bonne séance, j'ai senti la brûlure !\",\n  \"challenge\": \"CHALLENGE_ID_HERE\"\n}"
+              "raw": "{\n  \"name\": \"Séance Push-ups du matin\",\n  \"type\": \"strength\",\n  \"exercises\": [\n    {\n      \"exercise\": \"EXERCISE_ID_HERE\",\n      \"sets\": 3,\n      \"reps\": 20,\n      \"weight\": 0,\n      \"duration\": 5,\n      \"restTime\": 60,\n      \"caloriesBurned\": 40\n    }\n  ],\n  \"duration\": 15,\n  \"caloriesBurned\": 40,\n  \"notes\": \"Bonne séance, j'ai senti la brûlure !\",\n  \"challenge\": \"CHALLENGE_ID_HERE\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/trainings",
@@ -1052,7 +1052,7 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/trainings?page=1&limit=10&type=Musculation",
+              "raw": "{{baseUrl}}/trainings?page=1&limit=10&type=strength",
               "host": ["{{baseUrl}}"],
               "path": ["trainings"],
               "query": [
@@ -1066,7 +1066,7 @@
                 },
                 {
                   "key": "type",
-                  "value": "Musculation"
+                  "value": "strength"
                 }
               ]
             }

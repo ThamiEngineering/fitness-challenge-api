@@ -7,7 +7,7 @@ import { AppError } from '../utils/AppError';
 interface ExerciseCreateData {
   name: string;
   description: string;
-  category: string;
+  category: 'cardio' | 'strength' | 'flexibility' | 'balance' | 'sports' | 'recovery';
   muscleGroups: string[];
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   equipment: string[];
