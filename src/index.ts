@@ -1,14 +1,13 @@
-import express, { Application, Request, Response } from 'express';
-import mongoose from 'mongoose';
-import cors from 'cors';
-import helmet from 'helmet';
 import compression from 'compression';
-import morgan from 'morgan';
+import cors from 'cors';
 import dotenv from 'dotenv';
-import { logger, stream } from './utils/logger';
+import express, { Application, Request, Response } from 'express';
+import helmet from 'helmet';
+import mongoose from 'mongoose';
+import morgan from 'morgan';
 import { errorHandler } from './middlewares/error.middleware';
 import apiRoutes from './routes';
-
+import { logger, stream } from './utils/logger';
 dotenv.config();
 
 const app: Application = express();
@@ -47,7 +46,7 @@ app.get('/', (req: Request, res: Response) => {
   });
 });
 
-app.use('*', (req: Request, res: Response) => {
+app.use((req: Request, res: Response) => {
   res.status(404).json({
     success: false,
     error: {

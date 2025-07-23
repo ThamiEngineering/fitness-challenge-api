@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { AppError } from '../utils/AppError';
 import { logger } from '../utils/logger';
 
@@ -24,7 +24,7 @@ export const errorHandler = (
     url: req.originalUrl,
     method: req.method,
     ip: req.ip,
-    user: req.user?.id,
+    user: (req as any).user?.id,
   });
 
   // Mongoose bad ObjectId

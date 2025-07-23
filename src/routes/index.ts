@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import authRoutes from './auth.routes';
-import userRoutes from './user.routes';
-import gymRoutes from './gym.routes';
-import exerciseRoutes from './exercise.routes';
-import challengeRoutes from './challenge.routes';
 import badgeRoutes from './badge.routes';
+import challengeRoutes from './challenge.routes';
+import exerciseRoutes from './exercise.routes';
+import gymRoutes from './gym.routes';
 import trainingRoutes from './training.routes';
+import userRoutes from './user.routes';
 
 const router = Router();
 
@@ -29,7 +29,7 @@ router.use('/badges', badgeRoutes);
 router.use('/trainings', trainingRoutes);
 
 // 404 handler
-router.use('*', (req, res) => {
+router.use((req, res) => {
   res.status(404).json({
     success: false,
     error: {
