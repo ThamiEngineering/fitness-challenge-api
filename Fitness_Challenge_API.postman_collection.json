@@ -118,7 +118,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"currentPassword\": \"password123\",\n  \"newPassword\": \"newpassword123\"\n}"
+              "raw": "{\n  \"currentPassword\": \"password123\",\n  \"password\": \"newpassword123\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/auth/change-password",
