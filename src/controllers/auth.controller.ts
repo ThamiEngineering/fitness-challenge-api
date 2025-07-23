@@ -10,13 +10,7 @@ export class AuthController {
    * @access  Public
    */
   static register = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-    const { email, password, username, firstName, lastName, role, phoneNumber, dateOfBirth } = req.body;
-
-    if (role && role !== 'client') {
-      if (!req.user || req.user.role !== 'super_admin') {
-        throw new AppError('Seuls les super administrateurs peuvent créer des comptes avec des rôles spéciaux', 403);
-      }
-    }
+    const { email, password, username, firstName, lastName, phoneNumber, dateOfBirth } = req.body;
 
     const { user, token } = await AuthService.register({
       email,
@@ -24,7 +18,7 @@ export class AuthController {
       username,
       firstName,
       lastName,
-      role: role || 'client',
+      role: 'client',
       phoneNumber,
       dateOfBirth,
     });
