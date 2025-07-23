@@ -42,7 +42,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\",\n  \"username\": \"testuser\",\n  \"role\": \"client\",\n  \"profile\": {\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"phoneNumber\": \"0123456789\"\n  }\n}"
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\",\n  \"username\": \"testuser\",\n  \"role\": \"client\",\n \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"phoneNumber\": \"0123456789\"\n  }"
             },
             "url": {
               "raw": "{{baseUrl}}/auth/register",
