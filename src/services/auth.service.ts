@@ -1,7 +1,6 @@
-import jwt, { SignOptions } from 'jsonwebtoken';
 import crypto from 'crypto';
-import { StringValue } from 'ms';
-import { User, IUser } from '../models/user.model';
+import jwt, { SignOptions } from 'jsonwebtoken';
+import { IUser, User } from '../models/user.model';
 import { AppError } from '../utils/AppError';
 
 interface RegisterData {
@@ -36,9 +35,9 @@ export class AuthService {
     };
 
     const secret = process.env.JWT_SECRET || 'your-secret-key';
-    const expiresIn = (process.env.JWT_EXPIRE || '7d') as StringValue;
+    const expiresIn = process.env.JWT_EXPIRE || '7d';
     const options: SignOptions = {
-      expiresIn,
+      expiresIn: expiresIn as any,
     };
     
     return jwt.sign(payload, secret, options);

@@ -1,5 +1,5 @@
-import rateLimit from 'express-rate-limit';
 import { Request, Response } from 'express';
+import rateLimit from 'express-rate-limit';
 
 // Limiteur général pour toutes les requêtes
 export const generalLimiter = rateLimit({
@@ -13,7 +13,7 @@ export const generalLimiter = rateLimit({
       success: false,
       error: {
         message: 'Trop de requêtes, veuillez réessayer plus tard',
-        retryAfter: req.rateLimit?.resetTime,
+        retryAfter: (req as any).rateLimit?.resetTime,
       },
     });
   },

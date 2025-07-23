@@ -1,11 +1,15 @@
-import { RateLimitInfo } from 'express-rate-limit';
-
 declare global {
   namespace Express {
     interface Request {
-      rateLimit?: RateLimitInfo;
+      rateLimit?: {
+        resetTime?: Date;
+        limit?: number;
+        current?: number;
+        remaining?: number;
+      };
     }
   }
 }
 
-export {}; 
+export { };
+

@@ -1,5 +1,5 @@
-import mongoose, { Document, Schema } from 'mongoose';
 import bcrypt from 'bcryptjs';
+import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IUser extends Document {
   _id: mongoose.Types.ObjectId;
@@ -120,8 +120,7 @@ const userSchema = new Schema<IUser>(
   }
 );
 
-userSchema.index({ email: 1 });
-userSchema.index({ username: 1 });
+// email et username ont déjà des index via unique: true
 userSchema.index({ role: 1 });
 userSchema.index({ 'profile.firstName': 1, 'profile.lastName': 1 });
 
