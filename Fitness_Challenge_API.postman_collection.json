@@ -1108,7 +1108,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Séance Push-ups du matin\",\n  \"exercises\": [\n    {\n      \"exercise\": \"EXERCISE_ID_HERE\",\n      \"sets\": [\n        {\n          \"reps\": 20,\n          \"weight\": 0\n        }\n      ],\n      \"notes\": \"Notes for this exercise\"\n    }\n  ],\n  \"startTime\": \"2025-07-24T10:00:00Z\",\n  \"endTime\": \"2025-07-24T10:15:00Z\",\n  \"caloriesBurned\": 120,\n  \"intensity\": \"moderate\",\n  \"notes\": \"Bonne séance, j'ai senti la brûlure !\",\n  \"challenge\": \"CHALLENGE_ID_HERE\"\n}"
+              "raw": "{\n  \"name\": \"Séance Push-ups du matin\",\n  \"type\": \"Musculation\",\n  \"exercises\": [\n    {\n      \"exercise\": \"688247513b9336424ceb1372\",\n      \"sets\": [\n        { \"reps\": 20, \"weight\": 0, \"duration\": 5, \"restTime\": 60 }\n      ],\n      \"reps\": 20,\n      \"weight\": 0,\n      \"duration\": 5,\n      \"restTime\": 60,\n      \"caloriesBurned\": 40\n    }\n  ],\n  \"duration\": 15,\n  \"startTime\": \"2024-07-05T07:30:00.000Z\",\n  \"endTime\": \"2024-07-05T08:30:00.000Z\",\n  \"intensity\": \"moderate\",\n  \"caloriesBurned\": 40,\n  \"totalDuration\": 120,\n  \"notes\": \"Bonne séance, j'ai senti la brûlure !\",\n  \"challenge\": \"68824940f9f7ccdc36650146\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/trainings",
@@ -1128,7 +1128,7 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/trainings?page=1&limit=10&type=strength",
+              "raw": "{{baseUrl}}/trainings",
               "host": ["{{baseUrl}}"],
               "path": ["trainings"],
               "query": [

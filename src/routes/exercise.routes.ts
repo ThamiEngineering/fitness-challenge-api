@@ -45,11 +45,9 @@ const approveValidation = [
 
 router.use(generalLimiter);
 
-// Admin only routes
 router.get('/pending', authenticate, authorize('super_admin'), ExerciseController.getPendingExercises);
 router.patch('/:id/approve', authenticate, authorize('super_admin'), validate(approveValidation), ExerciseController.approveExercise);
 
-// Public routes
 router.get('/', ExerciseController.getAllExercises);
 router.get('/categories', ExerciseController.getExerciseCategories);
 router.get('/muscle-groups', ExerciseController.getMuscleGroups);
@@ -58,10 +56,8 @@ router.get('/search', validate(searchValidation), ExerciseController.searchExerc
 router.get('/recommended', ExerciseController.getRecommendedExercises);
 router.get('/:id', validate(exerciseIdValidation), ExerciseController.getExerciseById);
 
-// Exercise tools
 router.post('/:id/calculate-calories', validate([...exerciseIdValidation, ...calculateCaloriesValidation]), ExerciseController.calculateCalories);
 
-// Protected routes
 router.post('/', authenticate, createLimiter, validate(createExerciseValidation), ExerciseController.createExercise);
 router.put('/:id', authenticate, validate([...exerciseIdValidation, ...updateExerciseValidation]), ExerciseController.updateExercise);
 router.delete('/:id', authenticate, validate(exerciseIdValidation), ExerciseController.deleteExercise);

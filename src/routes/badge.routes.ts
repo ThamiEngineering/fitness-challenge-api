@@ -43,7 +43,6 @@ const userIdValidation = [
 
 router.use(generalLimiter);
 
-// Public routes
 router.get('/', BadgeController.getAllBadges);
 router.get('/popular', BadgeController.getPopularBadges);
 router.get('/categories', BadgeController.getBadgeCategories);
@@ -52,23 +51,18 @@ router.get('/recent-awards', BadgeController.getRecentAwards);
 router.get('/user/:userId', validate(userIdValidation), BadgeController.getUserBadges);
 router.get('/:id', validate([param('id').isMongoId().withMessage('ID de badge invalide')]), BadgeController.getBadgeById);
 
-// Protected routes
 router.post('/check/:userId', authenticate, validate(userIdValidation), BadgeController.checkAndAwardBadges);
 
-// Admin only routes
 router.post('/', authenticate, authorize('super_admin'), createLimiter, validate(createBadgeValidation), BadgeController.createBadge);
 router.post('/custom', authenticate, authorize('super_admin'), createLimiter, validate(createCustomBadgeValidation), BadgeController.createCustomBadge);
 router.put('/:id', authenticate, authorize('super_admin'), validate([param('id').isMongoId(), ...updateBadgeValidation]), BadgeController.updateBadge);
 router.delete('/:id', authenticate, authorize('super_admin'), validate([param('id').isMongoId()]), BadgeController.deleteBadge);
 
-// Badge assignment routes (Admin)
 router.post('/:badgeId/award/:userId', authenticate, authorize('super_admin'), validate([...badgeIdValidation, ...userIdValidation]), BadgeController.awardBadgeToUser);
 router.delete('/:badgeId/remove/:userId', authenticate, authorize('super_admin'), validate([...badgeIdValidation, ...userIdValidation]), BadgeController.removeBadgeFromUser);
 
-// Badge testing routes (Admin)
 router.post('/:badgeId/test/:userId', authenticate, authorize('super_admin'), validate([...badgeIdValidation, ...userIdValidation]), BadgeController.testBadgeRules);
 
-// Admin statistics
 router.get('/stats', authenticate, authorize('super_admin'), BadgeController.getBadgeStats);
 
 export default router; 

@@ -247,19 +247,21 @@ challengeSchema.index({ 'participants.user': 1 });
 challengeSchema.index({ title: 'text', description: 'text' });
 
 challengeSchema.virtual('participantCount').get(function() {
-  return this.participants ? this.participants.length : 0;
+  return (this.participants || []).length;
 });
 
+
 challengeSchema.virtual('completedCount').get(function() {
-  return this.participants ? this.participants.filter(p => p.completedAt).length : 0;
+  return (this.participants || []).filter(p => p.completedAt).length;
 });
 
 challengeSchema.methods.isFull = function(): boolean {
-  return this.maxParticipants ? this.participants.length >= this.maxParticipants : false;
+  return this.maxParticipants ? (this.participants || []).length >= this.maxParticipants : false;
 };
 
 challengeSchema.methods.hasParticipant = function(userId: string): boolean {
-  return this.participants.some((p: Participant) => p.user.toString() === userId);
+  return (this.participants || []).some((p: Participant) => p.user.toString() === userId);
 };
+
 
 export const Challenge = mongoose.model<IChallenge>('Challenge', challengeSchema);

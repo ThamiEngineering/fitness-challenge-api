@@ -1,9 +1,8 @@
 import { Request, Response } from 'express';
 import rateLimit from 'express-rate-limit';
 
-// Limiteur général pour toutes les requêtes
 export const generalLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
+  windowMs: 15 * 60 * 1000,
   max: 100,
   message: 'Trop de requêtes depuis cette adresse IP, veuillez réessayer dans 15 minutes',
   standardHeaders: true,
@@ -19,7 +18,6 @@ export const generalLimiter = rateLimit({
   },
 });
 
-// Limiteur strict pour l'authentification
 export const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 5,
@@ -29,7 +27,6 @@ export const authLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-// Limiteur pour la création de contenu
 export const createLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
   max: 30,
@@ -37,21 +34,18 @@ export const createLimiter = rateLimit({
   skipSuccessfulRequests: false,
 });
 
-// Limiteur pour les uploads de fichiers
 export const uploadLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
   max: 20,
   message: 'Limite d\'upload atteinte, veuillez réessayer dans une heure',
 });
 
-// Limiteur pour les requêtes d'API sensibles (comme les exports de données)
 export const sensitiveLimiter = rateLimit({
   windowMs: 24 * 60 * 60 * 1000,
   max: 10,
   message: 'Limite quotidienne atteinte pour cette action',
 });
 
-// Créer un limiteur personnalisé
 export const createCustomLimiter = (options: {
   windowMs: number;
   max: number;

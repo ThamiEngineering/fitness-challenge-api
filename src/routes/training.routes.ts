@@ -67,27 +67,23 @@ const exportValidation = [
 
 router.use(generalLimiter);
 
-// Protected routes - All training routes require authentication
 router.use(authenticate);
 
-// Main training CRUD
+router.get('/stats', validate(statsValidation), TrainingController.getTrainingStats);
+router.get('/progress', validate(progressValidation), TrainingController.getProgressAnalysis);
+router.get('/export', sensitiveLimiter, validate(exportValidation), TrainingController.exportTrainingData);
+router.get('/leaderboard', validate(leaderboardValidation), TrainingController.getTrainingLeaderboard);
+
+
+
 router.post('/', createLimiter, validate(createTrainingValidation), TrainingController.createTraining);
 router.get('/', TrainingController.getMyTrainings);
 router.get('/:id', validate(trainingIdValidation), TrainingController.getTrainingById);
 router.put('/:id', validate([...trainingIdValidation, ...updateTrainingValidation]), TrainingController.updateTraining);
 router.delete('/:id', validate(trainingIdValidation), TrainingController.deleteTraining);
 
-// Stats and analytics
-router.get('/stats', validate(statsValidation), TrainingController.getTrainingStats);
-router.get('/progress', validate(progressValidation), TrainingController.getProgressAnalysis);
-
-// Challenge-specific trainings
 router.get('/challenge/:challengeId', validate(challengeIdValidation), TrainingController.getChallengeTrainings);
 
-// Public leaderboard
-router.get('/leaderboard', validate(leaderboardValidation), TrainingController.getTrainingLeaderboard);
 
-// Data export (with sensitive rate limiting)
-router.get('/export', sensitiveLimiter, validate(exportValidation), TrainingController.exportTrainingData);
 
 export default router; 

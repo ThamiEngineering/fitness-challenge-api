@@ -30,12 +30,10 @@ const resetPasswordValidation = [
   body('newPassword').isLength({ min: 6 }).withMessage('Le nouveau mot de passe doit contenir au moins 6 caractères'),
 ];
 
-// Public routes
 router.post('/register', authLimiter, validate(registerValidation), AuthController.register);
 router.post('/login', authLimiter, validate(loginValidation), AuthController.login);
 router.post('/forgot-password', authLimiter, AuthController.forgotPassword);
 router.post('/reset-password/:token', authLimiter, validate(resetPasswordValidation), AuthController.resetPassword); 
-// Protected routes
 router.get('/me', authenticate, AuthController.getMe);
 router.post('/refresh-token', authenticate, AuthController.refreshToken);
 router.put('/change-password', authenticate, validate(changePasswordValidation), AuthController.changePassword);

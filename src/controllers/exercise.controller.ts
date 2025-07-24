@@ -532,7 +532,6 @@ export class ExerciseController {
     });
   });
 
-  // === ADMIN ONLY METHODS ===
 
   /**
    * @desc    Approuver/Rejeter un exercice (Admin)
@@ -551,9 +550,6 @@ export class ExerciseController {
 
     exercise.isApproved = approved;
     await exercise.save();
-
-    // TODO: Envoyer une notification au créateur
-    // En production, envoyer un email ici
 
     res.status(200).json({
       success: true,

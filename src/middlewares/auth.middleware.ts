@@ -76,7 +76,6 @@ export const authorize = (...roles: string[]) => {
   };
 };
 
-// Middleware optionnel pour récupérer l'utilisateur s'il est connecté
 export const optionalAuth = async (
   req: Request,
   res: Response,

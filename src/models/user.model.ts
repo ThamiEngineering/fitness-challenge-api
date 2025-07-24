@@ -120,7 +120,6 @@ const userSchema = new Schema<IUser>(
   }
 );
 
-// email et username ont déjà des index via unique: true
 userSchema.index({ role: 1 });
 userSchema.index({ 'profile.firstName': 1, 'profile.lastName': 1 });
 

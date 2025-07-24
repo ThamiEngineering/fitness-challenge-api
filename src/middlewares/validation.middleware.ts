@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { validationResult, ValidationChain } from 'express-validator';
 
-// Middleware pour exécuter les validations et retourner les erreurs
 export const validate = (validations: ValidationChain[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     await Promise.all(validations.map(validation => validation.run(req)));
@@ -57,7 +56,6 @@ export const sanitizeInput = (req: Request, res: Response, next: NextFunction) =
   next();
 };
 
-// Middleware pour valider les IDs MongoDB
 export const validateMongoId = (paramName: string = 'id') => {
   return (req: Request, res: Response, next: NextFunction) => {
     const id = req.params[paramName];
@@ -75,7 +73,6 @@ export const validateMongoId = (paramName: string = 'id') => {
   };
 };
 
-// Middleware pour valider la pagination
 export const validatePagination = (req: Request, res: Response, next: NextFunction) => {
   const page = parseInt(req.query.page as string) || 1;
   const limit = parseInt(req.query.limit as string) || 10;

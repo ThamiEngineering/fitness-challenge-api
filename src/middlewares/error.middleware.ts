@@ -17,7 +17,6 @@ export const errorHandler = (
   let error = { ...err };
   error.message = err.message;
 
-  // Log error
   logger.error({
     message: err.message,
     stack: err.stack,
@@ -27,13 +26,11 @@ export const errorHandler = (
     user: (req as any).user?.id,
   });
 
-  // Mongoose bad ObjectId
   if (err.name === 'CastError') {
     const message = 'Ressource non trouvée';
     error = new AppError(message, 404);
   }
 
-  // Mongoose duplicate key
   if ((err as MongoError).code === 11000) {
     const value = (err as MongoError).keyValue;
     const field = Object.keys(value || {})[0];
@@ -41,14 +38,12 @@ export const errorHandler = (
     error = new AppError(message, 400);
   }
 
-  // Mongoose validation error
   if (err.name === 'ValidationError') {
     const errors = Object.values((err as any).errors).map((e: any) => e.message);
     const message = `Données invalides: ${errors.join('. ')}`;
     error = new AppError(message, 400);
   }
 
-  // JWT errors
   if (err.name === 'JsonWebTokenError') {
     error = new AppError('Token invalide. Veuillez vous reconnecter', 401);
   }
@@ -76,7 +71,6 @@ export const errorHandler = (
   });
 };
 
-// Middleware pour gérer les routes non trouvées
 export const notFoundHandler = (
   req: Request,
   res: Response,
@@ -87,7 +81,6 @@ export const notFoundHandler = (
   next(error);
 };
 
-// Middleware pour gérer les promesses rejetées
 export const asyncHandler = (fn: Function) => {
   return (req: Request, res: Response, next: NextFunction) => {
     Promise.resolve(fn(req, res, next)).catch(next);

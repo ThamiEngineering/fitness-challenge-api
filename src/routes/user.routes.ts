@@ -27,27 +27,22 @@ const searchValidation = [
 
 router.use(generalLimiter);
 
-// Protected routes - User profile
 router.get('/profile', authenticate, UserController.getProfile);
 router.put('/profile', authenticate, validate(updateProfileValidation), UserController.updateProfile);
 router.get('/stats', authenticate, UserController.getStats);
 
-// Protected routes - Social features
 router.get('/search', authenticate, validate(searchValidation), UserController.searchUsers);
 router.post('/:id/friend', authenticate, validate(userIdValidation), UserController.addFriend);
 router.delete('/:id/friend', authenticate, validate(userIdValidation), UserController.removeFriend);
 router.get('/friends', authenticate, UserController.getFriends);
 
-// Public routes
 router.get('/leaderboard', UserController.getLeaderboard);
 
-// Admin only routes
 router.get('/', authenticate, authorize('super_admin'), UserController.getAllUsers);
 router.get('/:id', authenticate, authorize('super_admin'), validate(userIdValidation), UserController.getUserById);
 router.patch('/:id/toggle-active', authenticate, authorize('super_admin'), validate(userIdValidation), UserController.toggleUserActive);
 router.delete('/:id', authenticate, authorize('super_admin'), validate(userIdValidation), UserController.deleteUser);
 
-// Badge management routes (Admin)
 router.post('/:id/badges/:badgeId', authenticate, authorize('super_admin'), UserController.awardBadge);
 router.delete('/:id/badges/:badgeId', authenticate, authorize('super_admin'), UserController.removeBadge);
 

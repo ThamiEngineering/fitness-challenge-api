@@ -9,7 +9,6 @@ import userRoutes from './user.routes';
 
 const router = Router();
 
-// Health check
 router.get('/health', (req, res) => {
   res.status(200).json({
     success: true,
@@ -19,7 +18,6 @@ router.get('/health', (req, res) => {
   });
 });
 
-// API Routes
 router.use('/auth', authRoutes);
 router.use('/users', userRoutes);
 router.use('/gyms', gymRoutes);
@@ -28,7 +26,6 @@ router.use('/challenges', challengeRoutes);
 router.use('/badges', badgeRoutes);
 router.use('/trainings', trainingRoutes);
 
-// 404 handler
 router.use((req, res) => {
   res.status(404).json({
     success: false,

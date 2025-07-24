@@ -122,33 +122,13 @@ export class TrainingController {
       if (endDate) query.startTime.$lte = new Date(endDate as string);
     }
 
-    const skip = (Number(page) - 1) * Number(limit);
 
-    let sort: any = {};
-    switch (sortBy) {
-      case 'recent':
-        sort = { createdAt: -1 };
-        break;
-      case 'duration':
-        sort = { totalDuration: -1 };
-        break;
-      case 'calories':
-        sort = { caloriesBurned: -1 };
-        break;
-      case 'intensity':
-        sort = { intensity: -1 };
-        break;
-      default:
-        sort = { createdAt: -1 };
-    }
 
     const [trainings, total] = await Promise.all([
       Training.find(query)
         .populate('exercises.exercise', 'name category caloriesPerMinute')
         .populate('challenge', 'title type difficulty')
         .populate('gym', 'name address.city')
-        .sort(sort)
-        .skip(skip)
         .limit(Number(limit)),
       Training.countDocuments(query),
     ]);

@@ -171,15 +171,6 @@ export class GymController {
       throw new AppError('Salle non trouvée', 404);
     }
 
-    // if (!gym.isApproved) {
-    //   if (!req.user || (
-    //     req.user.role !== 'super_admin' &&
-    //     gym.owner._id.toString() !== req.user._id.toString()
-    //   )) {
-    //     throw new AppError('Salle non trouvée', 404);
-    //   }
-    // }
-
     res.status(200).json({
       success: true,
       data: {

@@ -296,7 +296,6 @@ export class UserController {
     });
   });
 
-  // === ADMIN ONLY METHODS ===
 
   /**
    * @desc    Obtenir tous les utilisateurs (Admin)

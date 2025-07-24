@@ -51,7 +51,6 @@ const invitationIdValidation = [
 
 router.use(generalLimiter);
 
-// Public routes
 router.get('/', ChallengeController.getAllChallenges);
 router.get('/search', validate(searchValidation), ChallengeController.searchChallenges);
 router.get('/trending', ChallengeController.getTrendingChallenges);
@@ -59,28 +58,23 @@ router.get('/trending', ChallengeController.getTrendingChallenges);
 router.get('/:id/participants', validate(challengeIdValidation), ChallengeController.getChallengeParticipants);
 router.get('/:id/leaderboard', validate(challengeIdValidation), ChallengeController.getChallengeLeaderboard);
 
-// Protected routes
 router.post('/', authenticate, createLimiter, validate(createChallengeValidation), ChallengeController.createChallenge);
 router.put('/:id', authenticate, validate([...challengeIdValidation, ...updateChallengeValidation]), ChallengeController.updateChallenge);
 router.delete('/:id', authenticate, validate(challengeIdValidation), ChallengeController.deleteChallenge);
 
-// Participation routes
 router.post('/:id/join', authenticate, validate(challengeIdValidation), ChallengeController.joinChallenge);
 router.post('/:id/leave', authenticate, validate(challengeIdValidation), ChallengeController.leaveChallenge);
 router.post('/:id/leave', authenticate, validate(challengeIdValidation), ChallengeController.leaveChallenge);
 router.put('/:id/progress', authenticate, validate([...challengeIdValidation, ...updateProgressValidation]), ChallengeController.updateProgress);
 
-// Social features
 router.post('/:id/invite', authenticate, validate([...challengeIdValidation, ...inviteFriendsValidation]), ChallengeController.inviteFriends);
 router.get('/invitations', authenticate, ChallengeController.getInvitations);
 router.post('/invitations/:id/accept', authenticate, validate(invitationIdValidation), ChallengeController.acceptInvitation);
 router.post('/invitations/:id/reject', authenticate, validate(invitationIdValidation), ChallengeController.rejectInvitation);
 
-// User challenge routes
 router.get('/my-challenges', authenticate, ChallengeController.getMyChallenges);
 router.get('/:id', validate(challengeIdValidation), ChallengeController.getChallengeById);
 
-// Stats routes (Creator or Admin)
 router.get('/:id/stats', authenticate, validate(challengeIdValidation), ChallengeController.getChallengeStats);
 
 export default router; 

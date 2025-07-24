@@ -222,7 +222,10 @@ trainingSchema.virtual('totalVolume').get(function() {
 });
 
 trainingSchema.virtual('totalSets').get(function() {
-  return this.exercises.reduce((total, ex) => total + ex.sets.length, 0);
+  return (this.exercises || []).reduce(
+    (total, ex) => total + ((ex.sets || []).length),
+    0
+  );
 });
 
 export const Training = mongoose.model<ITraining>('Training', trainingSchema);
