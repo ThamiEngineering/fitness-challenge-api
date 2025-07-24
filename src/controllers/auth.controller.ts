@@ -161,17 +161,17 @@ export class AuthController {
    */
   static resetPassword = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     const { token } = req.params;
-    const { password } = req.body;
+    const { newPassword } = req.body;
 
-    if (!password) {
+    if (!newPassword) {
       throw new AppError('Veuillez fournir un nouveau mot de passe', 400);
     }
 
-    if (password.length < 6) {
+    if (newPassword.length < 6) {
       throw new AppError('Le mot de passe doit contenir au moins 6 caractères', 400);
     }
 
-    await AuthService.resetPassword(token, password);
+    await AuthService.resetPassword(token, newPassword);
 
     res.status(200).json({
       success: true,

@@ -236,7 +236,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"currentPassword\": \"password123\",\n  \"password\": \"newpassword123\"\n}"
+              "raw": "{\n  \"currentPassword\": \"password123\",\n  \"newPassword\": \"newpassword123\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/auth/change-password",
@@ -278,12 +278,12 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"resetToken\": \"YOUR_RESET_TOKEN_HERE\",\n  \"newPassword\": \"newpassword123\"\n}"
+              "raw": "{\n  \"newPassword\": \"newpassword123\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/auth/reset-password",
+              "raw": "{{baseUrl}}/auth/reset-password/YOUR_RESET_TOKEN_HERE",
               "host": ["{{baseUrl}}"],
-              "path": ["auth", "reset-password"]
+              "path": ["auth", "reset-password", "YOUR_RESET_TOKEN_HERE"]
             }
           }
         },
