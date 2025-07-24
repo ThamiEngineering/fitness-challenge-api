@@ -45,6 +45,9 @@ const approveValidation = [
 
 router.use(generalLimiter);
 
+// Admin only routes
+router.get('/pending', authenticate, authorize('super_admin'), ExerciseController.getPendingExercises);
+
 // Public routes
 router.get('/', ExerciseController.getAllExercises);
 router.get('/categories', ExerciseController.getExerciseCategories);
@@ -61,10 +64,5 @@ router.post('/:id/calculate-calories', validate([...exerciseIdValidation, ...cal
 router.post('/', authenticate, createLimiter, validate(createExerciseValidation), ExerciseController.createExercise);
 router.put('/:id', authenticate, validate([...exerciseIdValidation, ...updateExerciseValidation]), ExerciseController.updateExercise);
 router.delete('/:id', authenticate, validate(exerciseIdValidation), ExerciseController.deleteExercise);
-
-// Admin only routes
-router.get('/pending-approval', authenticate, authorize('super_admin'), ExerciseController.getPendingExercises);
-router.put('/:id/approve', authenticate, authorize('super_admin'), validate([...exerciseIdValidation, ...approveValidation]), ExerciseController.approveExercise);
-router.get('/stats', authenticate, authorize('super_admin'), ExerciseController.getExerciseStats);
 
 export default router; 

@@ -10,7 +10,7 @@ export class AuthController {
    * @access  Public
    */
   static register = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-    const { email, password, username, firstName, lastName, phoneNumber, dateOfBirth } = req.body;
+    const { email, password, username, firstName, lastName, phoneNumber, dateOfBirth, role } = req.body;
 
     const { user, token } = await AuthService.register({
       email,
@@ -18,7 +18,7 @@ export class AuthController {
       username,
       firstName,
       lastName,
-      role: 'client',
+      role: role ? role : 'client',
       phoneNumber,
       dateOfBirth,
     });
