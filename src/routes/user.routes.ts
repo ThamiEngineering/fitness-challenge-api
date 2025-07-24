@@ -44,7 +44,7 @@ router.get('/leaderboard', UserController.getLeaderboard);
 // Admin only routes
 router.get('/', authenticate, authorize('super_admin'), UserController.getAllUsers);
 router.get('/:id', authenticate, authorize('super_admin'), validate(userIdValidation), UserController.getUserById);
-router.put('/:id/toggle-active', authenticate, authorize('super_admin'), validate(userIdValidation), UserController.toggleUserActive);
+router.patch('/:id/toggle-active', authenticate, authorize('super_admin'), validate(userIdValidation), UserController.toggleUserActive);
 router.delete('/:id', authenticate, authorize('super_admin'), validate(userIdValidation), UserController.deleteUser);
 
 // Badge management routes (Admin)
