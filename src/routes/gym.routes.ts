@@ -40,6 +40,11 @@ const approveValidation = [
 
 router.use(generalLimiter);
 
+// Admin only routes
+router.get('/pending', authenticate, authorize('super_admin'), GymController.getPendingGyms);
+router.put('/:id/approve', authenticate, authorize('super_admin'), validate([...gymIdValidation, ...approveValidation]), GymController.approveGym);
+router.get('/stats', authenticate, authorize('super_admin'), GymController.getGymStats);
+
 // Public routes
 router.get('/', GymController.getAllGyms);
 router.get('/:id', validate(gymIdValidation), GymController.getGymById);
@@ -55,10 +60,5 @@ router.post('/:id/unsubscribe', authenticate, validate(gymIdValidation), GymCont
 
 // User gym routes
 router.get('/my-gyms', authenticate, GymController.getMyGyms);
-
-// Admin only routes
-router.get('/pending-approval', authenticate, authorize('super_admin'), GymController.getPendingGyms);
-router.put('/:id/approve', authenticate, authorize('super_admin'), validate([...gymIdValidation, ...approveValidation]), GymController.approveGym);
-router.get('/stats', authenticate, authorize('super_admin'), GymController.getGymStats);
 
 export default router; 

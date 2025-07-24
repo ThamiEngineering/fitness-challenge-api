@@ -572,7 +572,7 @@ export class ExerciseController {
 
   /**
    * @desc    Obtenir les exercices en attente d'approbation (Admin)
-   * @route   GET /api/exercises/pending-approval
+   * @route   GET /api/exercises/pending
    * @access  Private/Super Admin
    */
   static getPendingExercises = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {

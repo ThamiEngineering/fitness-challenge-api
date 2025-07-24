@@ -453,7 +453,7 @@ export class GymController {
 
   /**
    * @desc    Obtenir les salles en attente d'approbation (Admin)
-   * @route   GET /api/gyms/pending-approval
+   * @route   GET /api/gyms/pending
    * @access  Private/Super Admin
    */
   static getPendingGyms = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
