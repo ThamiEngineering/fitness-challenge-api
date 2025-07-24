@@ -51,7 +51,7 @@ router.use(generalLimiter);
 router.get('/', ChallengeController.getAllChallenges);
 router.get('/search', validate(searchValidation), ChallengeController.searchChallenges);
 router.get('/trending', ChallengeController.getTrendingChallenges);
-router.get('/:id', validate(challengeIdValidation), ChallengeController.getChallengeById);
+
 router.get('/:id/participants', validate(challengeIdValidation), ChallengeController.getChallengeParticipants);
 router.get('/:id/leaderboard', validate(challengeIdValidation), ChallengeController.getChallengeLeaderboard);
 
@@ -70,6 +70,7 @@ router.post('/:id/invite', authenticate, validate([...challengeIdValidation, ...
 
 // User challenge routes
 router.get('/my-challenges', authenticate, ChallengeController.getMyChallenges);
+router.get('/:id', validate(challengeIdValidation), ChallengeController.getChallengeById);
 
 // Stats routes (Creator or Admin)
 router.get('/:id/stats', authenticate, validate(challengeIdValidation), ChallengeController.getChallengeStats);
