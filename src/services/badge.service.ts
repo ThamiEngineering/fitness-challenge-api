@@ -1,8 +1,8 @@
 import { Badge, IBadge } from '../models/badge.model';
-import { User, IUser } from '../models/user.model';
-import { AppError } from '../utils/AppError';
-import { Training } from '../models/training.model';
 import { Challenge } from '../models/challenge.model';
+import { Training } from '../models/training.model';
+import { IUser, User } from '../models/user.model';
+import { AppError } from '../utils/AppError';
 
 interface BadgeCreateData {
   name: string;
@@ -147,10 +147,15 @@ export class BadgeService {
     const trainings = await Training.find({ user: user._id });
     const totalTrainingMinutes = trainings.reduce((sum, t) => sum + t.totalDuration, 0);
 
+    let userObj: any = user;
+    if (user && typeof (user as any).toObject === 'function') {
+      userObj = user.toObject();
+    }
+
     return {
-      ...user.toObject(),
+      ...userObj,
       stats: {
-        ...user.stats,
+        ...userObj.stats,
         trainingCount,
         completedChallenges,
         totalTrainingMinutes,

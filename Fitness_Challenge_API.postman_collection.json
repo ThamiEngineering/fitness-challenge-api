@@ -909,7 +909,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Push-up Champion\",\n  \"description\": \"Complété le défi 1000 push-ups\",\n  \"category\": \"Achievement\",\n  \"rarity\": \"rare\",\n  \"icon\": \"🏆\",\n  \"rules\": {\n    \"type\": \"challenge_completion\",\n    \"conditions\": {\n      \"challengeCategory\": \"strength\",\n      \"minProgress\": 100\n    }\n  },\n  \"rewards\": {\n    \"points\": 100,\n    \"title\": \"Champion\"\n  }\n}"
+              "raw": "{\n  \"name\": \"Push-up Champion\",\n  \"description\": \"Complété le défi 1000 push-ups\",\n  \"category\": \"achievement\",\n  \"rarity\": \"rare\",\n  \"icon\": \"🏆\",\n  \"points\": 100,\n  \"rules\": [\n    {\n      \"type\": \"challenge_completion\",\n      \"field\": \"challengeCategory\",\n      \"operator\": \"equals\",\n      \"value\": \"strength\",\n      \"conditions\": {\n        \"minProgress\": 100\n      }\n    }\n  ]\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/badges",
@@ -929,7 +929,7 @@
               "query": [
                 {
                   "key": "category",
-                  "value": "Achievement"
+                  "value": "achievement"
                 },
                 {
                   "key": "rarity",
@@ -972,12 +972,12 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"userId\": \"USER_ID_HERE\",\n  \"event\": \"challenge_completed\",\n  \"data\": {\n    \"challengeId\": \"CHALLENGE_ID_HERE\",\n    \"category\": \"strength\",\n    \"progress\": 100\n  }\n}"
+              "raw": "{\n  \"event\": \"challenge_completed\",\n  \"data\": {\n    \"challengeId\": \"CHALLENGE_ID_HERE\",\n    \"category\": \"strength\",\n    \"progress\": 100\n  }\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/badges/check-and-award",
+              "raw": "{{baseUrl}}/badges/check/{{userId}}",
               "host": ["{{baseUrl}}"],
-              "path": ["badges", "check-and-award"]
+              "path": ["badges", "check", "{{userId}}"]
             }
           }
         },
@@ -1014,12 +1014,12 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"userId\": \"USER_ID_HERE\",\n  \"testData\": {\n    \"challengesCompleted\": 5,\n    \"totalCalories\": 1500,\n    \"workoutStreak\": 7\n  }\n}"
+              "raw": "{\n  \"testData\": {\n    \"challengesCompleted\": 5,\n    \"totalCalories\": 1500,\n    \"workoutStreak\": 7\n  }\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/badges/BADGE_ID_HERE/test",
+              "raw": "{{baseUrl}}/badges/{{badgeId}}/test/{{userId}}",
               "host": ["{{baseUrl}}"],
-              "path": ["badges", "BADGE_ID_HERE", "test"]
+              "path": ["badges", "{{badgeId}}", "test", "{{userId}}"]
             }
           }
         }
