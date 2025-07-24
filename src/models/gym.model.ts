@@ -222,9 +222,9 @@ gymSchema.index({ 'address.city': 1 });
 gymSchema.index({ 'address.coordinates': '2dsphere' });
 gymSchema.index({ name: 'text', description: 'text' });
 
-gymSchema.virtual('activeSubscribers').get(function() {
-  return this.subscriptions.filter(sub => sub.isActive).length;
-});
+// gymSchema.virtual('activeSubscribers').get(function() {
+//   return this.subscriptions.filter(sub => sub.isActive).length;
+// });
 
 gymSchema.methods.isUserSubscribed = function(userId: string): boolean {
   return this.subscriptions.some(
