@@ -133,33 +133,11 @@ export class GymController {
       query.isApproved = true;
     }
 
-    const skip = (Number(page) - 1) * Number(limit);
-
-    let sort: any = {};
-    switch (sortBy) {
-      case 'name':
-        sort = { name: 1 };
-        break;
-      case 'rating':
-        sort = { 'rating.average': -1 };
-        break;
-      case 'capacity':
-        sort = { capacity: -1 };
-        break;
-      case 'recent':
-        sort = { createdAt: -1 };
-        break;
-      default:
-        sort = { name: 1 };
-    }
-
     const [gyms, total] = await Promise.all([
       Gym.find(query)
         .populate('owner', 'username profile.firstName profile.lastName')
         .populate('approvedBy', 'username')
         .select('-subscriptions')
-        .sort(sort)
-        .skip(skip)
         .limit(Number(limit)),
       Gym.countDocuments(query),
     ]);
@@ -193,14 +171,14 @@ export class GymController {
       throw new AppError('Salle non trouvée', 404);
     }
 
-    if (!gym.isApproved) {
-      if (!req.user || (
-        req.user.role !== 'super_admin' && 
-        gym.owner._id.toString() !== req.user._id.toString()
-      )) {
-        throw new AppError('Salle non trouvée', 404);
-      }
-    }
+    // if (!gym.isApproved) {
+    //   if (!req.user || (
+    //     req.user.role !== 'super_admin' &&
+    //     gym.owner._id.toString() !== req.user._id.toString()
+    //   )) {
+    //     throw new AppError('Salle non trouvée', 404);
+    //   }
+    // }
 
     res.status(200).json({
       success: true,
@@ -294,7 +272,6 @@ export class GymController {
    * @access  Private (Client)
    */
   static subscribeToGym = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-    const { endDate } = req.body;
     const gymId = req.params.id;
     const userId = req.user?._id;
 
@@ -319,7 +296,6 @@ export class GymController {
     gym.subscriptions.push({
       user: userId,
       startDate: new Date(),
-      endDate: endDate ? new Date(endDate) : undefined,
       isActive: true,
     });
 
@@ -418,6 +394,8 @@ export class GymController {
     const adminId = req.user?._id;
 
     const gym = await Gym.findById(gymId).populate('owner', 'username email');
+
+    console.log(gym)
 
     if (!gym) {
       throw new AppError('Salle non trouvée', 404);
