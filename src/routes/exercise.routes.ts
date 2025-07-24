@@ -47,6 +47,7 @@ router.use(generalLimiter);
 
 // Admin only routes
 router.get('/pending', authenticate, authorize('super_admin'), ExerciseController.getPendingExercises);
+router.patch('/:id/approve', authenticate, authorize('super_admin'), validate(approveValidation), ExerciseController.approveExercise);
 
 // Public routes
 router.get('/', ExerciseController.getAllExercises);
