@@ -475,7 +475,8 @@ export class ChallengeController {
     const result = await ChallengeService.getChallenges(
       filters,
       Number(page),
-      Number(limit)
+      Number(limit),
+      searchQuery
     );
 
     res.status(200).json({

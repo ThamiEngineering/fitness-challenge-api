@@ -247,11 +247,11 @@ challengeSchema.index({ 'participants.user': 1 });
 challengeSchema.index({ title: 'text', description: 'text' });
 
 challengeSchema.virtual('participantCount').get(function() {
-  return this.participants.length;
+  return this.participants ? this.participants.length : 0;
 });
 
 challengeSchema.virtual('completedCount').get(function() {
-  return this.participants.filter(p => p.completedAt).length;
+  return this.participants ? this.participants.filter(p => p.completedAt).length : 0;
 });
 
 challengeSchema.methods.isFull = function(): boolean {

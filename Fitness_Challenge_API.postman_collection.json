@@ -757,6 +757,23 @@
           }
         },
         {
+          "name": "Leave Challenge",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/challenges/CHALLENGE_ID_HERE/leave",
+              "host": ["{{baseUrl}}"],
+              "path": ["challenges", "CHALLENGE_ID_HERE", "leave"]
+            }
+          }
+        },
+        {
           "name": "Update Progress",
           "request": {
             "method": "PUT",
@@ -851,17 +868,13 @@
           "request": {
             "method": "GET",
             "url": {
-              "raw": "{{baseUrl}}/challenges/search?q=push-ups&type=individual",
+              "raw": "{{baseUrl}}/challenges/search?q=push-ups",
               "host": ["{{baseUrl}}"],
               "path": ["challenges", "search"],
               "query": [
                 {
                   "key": "q",
                   "value": "push-ups"
-                },
-                {
-                  "key": "type",
-                  "value": "individual"
                 }
               ]
             }

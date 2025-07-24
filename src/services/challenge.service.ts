@@ -254,8 +254,8 @@ export class ChallengeService {
   /**
    * Obtenir les défis avec filtres
    */
-  static async getChallenges(filters: ChallengeFilters, page = 1, limit = 20) {
-    const query: any = {};
+  static async getChallenges(filters: ChallengeFilters, page = 1, limit = 20, searchQuery?: any) {
+    const query: any = { ...searchQuery };
 
     if (filters.type) query.type = filters.type;
     if (filters.difficulty) query.difficulty = filters.difficulty;

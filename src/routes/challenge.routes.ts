@@ -67,6 +67,7 @@ router.delete('/:id', authenticate, validate(challengeIdValidation), ChallengeCo
 // Participation routes
 router.post('/:id/join', authenticate, validate(challengeIdValidation), ChallengeController.joinChallenge);
 router.post('/:id/leave', authenticate, validate(challengeIdValidation), ChallengeController.leaveChallenge);
+router.post('/:id/leave', authenticate, validate(challengeIdValidation), ChallengeController.leaveChallenge);
 router.put('/:id/progress', authenticate, validate([...challengeIdValidation, ...updateProgressValidation]), ChallengeController.updateProgress);
 
 // Social features
