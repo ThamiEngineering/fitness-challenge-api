@@ -410,9 +410,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/users/friends/USER_ID_HERE",
+              "raw": "{{baseUrl}}/users/{{friendId}}/friend",
               "host": ["{{baseUrl}}"],
-              "path": ["users", "friends", "USER_ID_HERE"]
+              "path": ["users", "{{friendId}}", "friend"]
             }
           }
         },
@@ -491,7 +491,7 @@
           "request": {
             "method": "GET",
             "url": {
-              "raw": "{{baseUrl}}/gyms?page=1&limit=10&city=Paris",
+              "raw": "{{baseUrl}}/gyms?limit=10",
               "host": ["{{baseUrl}}"],
               "path": ["gyms"],
               "query": [
@@ -1268,9 +1268,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/gyms/GYM_ID_HERE/approve",
+              "raw": "{{baseUrl}}/gyms/approve/GYM_ID_HERE",
               "host": ["{{baseUrl}}"],
-              "path": ["gyms", "GYM_ID_HERE", "approve"]
+              "path": ["gyms", "approve", "GYM_ID_HERE"]
             }
           }
         },
