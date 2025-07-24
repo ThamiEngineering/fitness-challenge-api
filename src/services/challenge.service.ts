@@ -4,6 +4,7 @@ import { Gym } from '../models/gym.model';
 import { AppError } from '../utils/AppError';
 import { BadgeService } from './badge.service';
 import mongoose from 'mongoose';
+import { Invitation, IInvitation } from '../models/invitation.model';
 
 interface ChallengeCreateData {
   title: string;
@@ -253,8 +254,8 @@ export class ChallengeService {
   /**
    * Obtenir les défis avec filtres
    */
-  static async getChallenges(filters: ChallengeFilters, page = 1, limit = 20) {
-    const query: any = {};
+  static async getChallenges(filters: ChallengeFilters, page = 1, limit = 20, searchQuery?: any) {
+    const query: any = { ...searchQuery };
 
     if (filters.type) query.type = filters.type;
     if (filters.difficulty) query.difficulty = filters.difficulty;
@@ -349,19 +350,120 @@ export class ChallengeService {
     friendIds: string[]
   ): Promise<void> {
     const challenge = await Challenge.findById(challengeId);
-    
     if (!challenge) {
       throw new AppError('Défi non trouvé', 404);
+    }
+
+    const inviter = await User.findById(userId);
+    if (!inviter) {
+      throw new AppError('Utilisateur non trouvé', 404);
     }
 
     if (!challenge.hasParticipant(userId)) {
       throw new AppError('Vous devez participer au défi pour inviter des amis', 403);
     }
 
-    const friends = await User.find({ _id: { $in: friendIds } });
-    
-    if (friends.length !== friendIds.length) {
-      throw new AppError('Un ou plusieurs utilisateurs n\'existent pas', 404);
+    const validFriends = await User.find({ _id: { $in: friendIds } });
+    if (validFriends.length !== friendIds.length) {
+      throw new AppError('Un ou plusieurs utilisateurs à inviter n\'existent pas', 404);
     }
+
+    for (const friend of validFriends) {
+      // Check if they are actually friends
+      if (!inviter.friends.includes(friend._id)) {
+        throw new AppError(`${friend.username} n'est pas votre ami`, 400);
+      }
+
+      // Check if already invited or participating
+      const existingInvitation = await Invitation.findOne({
+        challenge: challengeId,
+        recipient: friend._id,
+        status: 'pending',
+      });
+
+      if (existingInvitation) {
+        throw new AppError(`Une invitation est déjà en attente pour ${friend.username}`, 400);
+      }
+
+      if (challenge.hasParticipant(friend._id.toString())) {
+        throw new AppError(`${friend.username} participe déjà à ce défi`, 400);
+      }
+
+      await Invitation.create({
+        challenge: challengeId,
+        sender: userId,
+        recipient: friend._id,
+        status: 'pending',
+      });
+    }
+  }
+
+  /**
+   * Obtenir les invitations d'un utilisateur
+   */
+  static async getInvitations(userId: string): Promise<IInvitation[]> {
+    const invitations = await Invitation.find({ recipient: userId, status: 'pending' })
+      .populate('challenge', 'title description')
+      .populate('sender', 'username profile.firstName profile.lastName');
+    return invitations;
+  }
+
+  /**
+   * Accepter une invitation
+   */
+  static async acceptInvitation(invitationId: string, userId: string): Promise<IChallenge> {
+    const invitation = await Invitation.findOne({ _id: invitationId, recipient: userId, status: 'pending' });
+
+    if (!invitation) {
+      throw new AppError('Invitation non trouvée ou déjà traitée', 404);
+    }
+
+    const challenge = await Challenge.findById(invitation.challenge);
+    if (!challenge) {
+      throw new AppError('Défi associé à l\'invitation non trouvé', 404);
+    }
+
+    if (challenge.hasParticipant(userId)) {
+      await invitation.deleteOne(); // Clean up invitation if user already joined
+      throw new AppError('Vous participez déjà à ce défi', 400);
+    }
+
+    if (challenge.isFull()) {
+      throw new AppError('Ce défi a atteint le nombre maximum de participants', 400);
+    }
+
+    if (!challenge.isActive) {
+      throw new AppError('Ce défi n\'est plus actif', 400);
+    }
+
+    challenge.participants.push({
+      user: userId as any,
+      joinedAt: new Date(),
+      progress: 0,
+    });
+    await challenge.save();
+
+    invitation.status = 'accepted';
+    await invitation.deleteOne(); // Remove invitation after acceptance
+
+    await User.findByIdAndUpdate(userId, {
+      $inc: { 'stats.totalChallenges': 1 },
+    });
+
+    return challenge;
+  }
+
+  /**
+   * Rejeter une invitation
+   */
+  static async rejectInvitation(invitationId: string, userId: string): Promise<void> {
+    const invitation = await Invitation.findOne({ _id: invitationId, recipient: userId, status: 'pending' });
+
+    if (!invitation) {
+      throw new AppError('Invitation non trouvée ou déjà traitée', 404);
+    }
+
+    invitation.status = 'rejected';
+    await invitation.deleteOne(); // Remove invitation after rejection
   }
 }
