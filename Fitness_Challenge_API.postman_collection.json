@@ -410,9 +410,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/users/friends/USER_ID_HERE",
+              "raw": "{{baseUrl}}/users/{{friendId}}/friend",
               "host": ["{{baseUrl}}"],
-              "path": ["users", "friends", "USER_ID_HERE"]
+              "path": ["users", "{{friendId}}", "friend"]
             }
           }
         },
