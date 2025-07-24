@@ -274,6 +274,67 @@ export class ChallengeController {
   });
 
   /**
+   * @desc    Obtenir les invitations de l'utilisateur
+   * @route   GET /api/challenges/invitations
+   * @access  Private
+   */
+  static getInvitations = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.user?._id;
+
+    if (!userId) {
+      throw new AppError('Utilisateur non authentifié', 401);
+    }
+
+    const invitations = await ChallengeService.getInvitations(userId.toString());
+
+    res.status(200).json({
+      success: true,
+      data: { invitations },
+    });
+  });
+
+  /**
+   * @desc    Accepter une invitation à un défi
+   * @route   POST /api/challenges/invitations/:id/accept
+   * @access  Private
+   */
+  static acceptInvitation = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.user?._id;
+
+    if (!userId) {
+      throw new AppError('Utilisateur non authentifié', 401);
+    }
+
+    const challenge = await ChallengeService.acceptInvitation(req.params.id, userId.toString());
+
+    res.status(200).json({
+      success: true,
+      data: { challenge },
+      message: 'Invitation acceptée avec succès. Vous avez rejoint le défi.',
+    });
+  });
+
+  /**
+   * @desc    Rejeter une invitation à un défi
+   * @route   POST /api/challenges/invitations/:id/reject
+   * @access  Private
+   */
+  static rejectInvitation = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.user?._id;
+
+    if (!userId) {
+      throw new AppError('Utilisateur non authentifié', 401);
+    }
+
+    await ChallengeService.rejectInvitation(req.params.id, userId.toString());
+
+    res.status(200).json({
+      success: true,
+      message: 'Invitation rejetée avec succès.',
+    });
+  });
+
+  /**
    * @desc    Obtenir les participants d'un défi
    * @route   GET /api/challenges/:id/participants?page=1&limit=20
    * @access  Public

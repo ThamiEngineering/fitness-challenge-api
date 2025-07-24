@@ -887,6 +887,57 @@
               ]
             }
           }
+        },
+        {
+          "name": "Get My Invitations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/challenges/invitations",
+              "host": ["{{baseUrl}}"],
+              "path": ["challenges", "invitations"]
+            }
+          }
+        },
+        {
+          "name": "Accept Invitation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/challenges/invitations/INVITATION_ID_HERE/accept",
+              "host": ["{{baseUrl}}"],
+              "path": ["challenges", "invitations", "INVITATION_ID_HERE", "accept"]
+            }
+          }
+        },
+        {
+          "name": "Reject Invitation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/challenges/invitations/INVITATION_ID_HERE/reject",
+              "host": ["{{baseUrl}}"],
+              "path": ["challenges", "invitations", "INVITATION_ID_HERE", "reject"]
+            }
+          }
         }
       ]
     },

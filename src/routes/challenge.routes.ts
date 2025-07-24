@@ -45,6 +45,10 @@ const searchValidation = [
   query('q').notEmpty().withMessage('Terme de recherche requis'),
 ];
 
+const invitationIdValidation = [
+  param('id').isMongoId().withMessage('ID d\'invitation invalide'),
+];
+
 router.use(generalLimiter);
 
 // Public routes
@@ -67,6 +71,9 @@ router.put('/:id/progress', authenticate, validate([...challengeIdValidation, ..
 
 // Social features
 router.post('/:id/invite', authenticate, validate([...challengeIdValidation, ...inviteFriendsValidation]), ChallengeController.inviteFriends);
+router.get('/invitations', authenticate, ChallengeController.getInvitations);
+router.post('/invitations/:id/accept', authenticate, validate(invitationIdValidation), ChallengeController.acceptInvitation);
+router.post('/invitations/:id/reject', authenticate, validate(invitationIdValidation), ChallengeController.rejectInvitation);
 
 // User challenge routes
 router.get('/my-challenges', authenticate, ChallengeController.getMyChallenges);
