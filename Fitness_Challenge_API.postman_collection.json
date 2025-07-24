@@ -689,7 +689,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"title\": \"Défi 30 jours Push-ups\",\n  \"description\": \"Faire 1000 push-ups en 30 jours\",\n  \"type\": \"individual\",\n  \"difficulty\": \"medium\",\n  \"category\": \"strength\",\n  \"objectives\": [\n    {\n      \"description\": \"Push-ups totaux\",\n      \"target\": 1000,\n      \"unit\": \"repetitions\"\n    }\n  ],\n  \"duration\": {\n    \"value\": 30,\n    \"unit\": \"days\"\n  },\n  \"rewards\": {\n    \"points\": 500,\n    \"badges\": []\n  },\n  \"maxParticipants\": 100,\n  \"tags\": [\"push-ups\", \"strength\", \"30jours\"]\n}"
+              "raw": "{\"title\": \"Défi 30 jours Push-ups\", \"description\": \"Faire 1000 push-ups en 30 jours\", \"type\": \"individual\", \"difficulty\": \"medium\", \"category\": \"muscle_gain\", \"objectives\": [{\"description\": \"Push-ups totaux\", \"target\": 1000, \"unit\": \"repetitions\"}], \"exercises\": [], \"duration\": {\"value\": 30, \"unit\": \"days\"}, \"rewards\": {\"points\": 500, \"badges\": []}, \"maxParticipants\": 100, \"tags\": [\"push-ups\", \"strength\", \"30jours\"]}"
             },
             "url": {
               "raw": "{{baseUrl}}/challenges",
@@ -703,7 +703,7 @@
           "request": {
             "method": "GET",
             "url": {
-              "raw": "{{baseUrl}}/challenges?type=individual&difficulty=medium&page=1&limit=10",
+              "raw": "{{baseUrl}}/challenges?type=individual&difficulty=medium&minDuration=10&maxDuration=30&durationUnit=days&page=1&limit=10",
               "host": ["{{baseUrl}}"],
               "path": ["challenges"],
               "query": [
@@ -714,6 +714,18 @@
                 {
                   "key": "difficulty",
                   "value": "medium"
+                },
+                {
+                  "key": "minDuration",
+                  "value": "10"
+                },
+                {
+                  "key": "maxDuration",
+                  "value": "30"
+                },
+                {
+                  "key": "durationUnit",
+                  "value": "days"
                 },
                 {
                   "key": "page",
@@ -1032,7 +1044,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Séance Push-ups du matin\",\n  \"type\": \"strength\",\n  \"exercises\": [\n    {\n      \"exercise\": \"EXERCISE_ID_HERE\",\n      \"sets\": 3,\n      \"reps\": 20,\n      \"weight\": 0,\n      \"duration\": 5,\n      \"restTime\": 60,\n      \"caloriesBurned\": 40\n    }\n  ],\n  \"duration\": 15,\n  \"caloriesBurned\": 40,\n  \"notes\": \"Bonne séance, j'ai senti la brûlure !\",\n  \"challenge\": \"CHALLENGE_ID_HERE\"\n}"
+              "raw": "{\n  \"name\": \"Séance Push-ups du matin\",\n  \"exercises\": [\n    {\n      \"exercise\": \"EXERCISE_ID_HERE\",\n      \"sets\": [\n        {\n          \"reps\": 20,\n          \"weight\": 0\n        }\n      ],\n      \"notes\": \"Notes for this exercise\"\n    }\n  ],\n  \"startTime\": \"2025-07-24T10:00:00Z\",\n  \"endTime\": \"2025-07-24T10:15:00Z\",\n  \"caloriesBurned\": 120,\n  \"intensity\": \"moderate\",\n  \"notes\": \"Bonne séance, j'ai senti la brûlure !\",\n  \"challenge\": \"CHALLENGE_ID_HERE\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/trainings",

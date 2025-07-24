@@ -40,6 +40,9 @@ export class ChallengeController {
       gym,
       isActive,
       createdBy,
+      minDuration,
+      maxDuration,
+      durationUnit,
       page = 1,
       limit = 20
     } = req.query;
@@ -51,6 +54,9 @@ export class ChallengeController {
       ...(gym && { gym: gym as string }),
       ...(isActive !== undefined && { isActive: isActive === 'true' }),
       ...(createdBy && { createdBy: createdBy as string }),
+      ...(minDuration && { minDuration: Number(minDuration) }),
+      ...(maxDuration && { maxDuration: Number(maxDuration) }),
+      ...(durationUnit && { durationUnit: durationUnit as string }),
     };
 
     const result = await ChallengeService.getChallenges(

@@ -30,6 +30,9 @@ interface ChallengeFilters {
   gym?: string;
   isActive?: boolean;
   createdBy?: string;
+  minDuration?: number;
+  maxDuration?: number;
+  durationUnit?: string;
 }
 
 export class ChallengeService {
@@ -259,6 +262,13 @@ export class ChallengeService {
     if (filters.gym) query.gym = filters.gym;
     if (filters.createdBy) query.createdBy = filters.createdBy;
     if (filters.isActive !== undefined) query.isActive = filters.isActive;
+
+    if (filters.minDuration || filters.maxDuration) {
+      query['duration.value'] = {};
+      if (filters.minDuration) query['duration.value'].$gte = filters.minDuration;
+      if (filters.maxDuration) query['duration.value'].$lte = filters.maxDuration;
+    }
+    if (filters.durationUnit) query['duration.unit'] = filters.durationUnit;
 
     const skip = (page - 1) * limit;
 
